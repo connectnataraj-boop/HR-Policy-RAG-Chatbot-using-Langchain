@@ -58,7 +58,7 @@ HR Policy PDF
                    │  full document text
                    ▼
 ┌──────────────────────────────────────┐
-│  RecursiveCharacterTextSplitter      │  chunk_size=900, chunk_overlap=150
+│  RecursiveCharacterTextSplitter      │  chunk_size=500, chunk_overlap=150
 │  get_chunks()                        │  splits on paragraphs → sentences → words
 └──────────────────┬───────────────────┘
                    │  list of text chunks
