@@ -20,7 +20,7 @@ def load_pdf(path):
 
 def get_chunks(text):
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=900,
+        chunk_size=500,
         chunk_overlap=150
     )
     return splitter.split_text(text)
