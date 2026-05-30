@@ -273,7 +273,7 @@ streamlit run app.py
 **S. Nataraj** — AI Engineer | Deep Learning & Gen AI
 Tirupur, Tamil Nadu, India
 📧 connectnataraj@outlook.com
-🔗 [GitHub](https://github.com/connectnataraj-boop) · [LinkedIn](https://linkedin.com/in/your-profile)
+🔗 [GitHub](https://github.com/connectnataraj-boop) · [LinkedIn](https://www.linkedin.com/in/nataraj-sb-b5a84a3b7/)
 
 ---
 
