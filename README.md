@@ -270,7 +270,7 @@ streamlit run app.py
 
 ## 👤 Author
 
-**S. Nataraj** — Deep Learning & AI Engineer
+**S. Nataraj** — AI Engineer | Deep Learning & Gen AI
 Tirupur, Tamil Nadu, India
 📧 connectnataraj@outlook.com
 🔗 [GitHub](https://github.com/connectnataraj-boop) · [LinkedIn](https://linkedin.com/in/your-profile)
