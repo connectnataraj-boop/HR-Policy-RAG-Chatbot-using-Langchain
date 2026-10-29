@@ -1,10 +1,13 @@
 import io
+import time
 import hashlib
 import streamlit as st
 from llm_langchain import load_pdf, get_chunks, store_in_pinecone, query_processor
 
 st.title("HR Policy Chatbot")
 st.write("Upload an HR policy PDF, then ask questions about it.")
+
+use_rerank = st.sidebar.checkbox("Use reranking", value=True)
 
 uploaded = st.file_uploader("Upload a PDF", type="pdf")
 
@@ -37,9 +40,12 @@ if query:
         st.write(query)
     st.session_state.messages.append({"role": "user", "content": query})
 
+    start = time.perf_counter()
     with st.spinner("Thinking..."):
-        answer = query_processor(query, vectorstore)
+        answer = query_processor(query, vectorstore, use_rerank=use_rerank)
+    elapsed = time.perf_counter() - start
 
     with st.chat_message("assistant"):
         st.write(answer)
+        st.caption(f"{'With' if use_rerank else 'Without'} reranking | {elapsed:.1f}s")
     st.session_state.messages.append({"role": "assistant", "content": answer})
