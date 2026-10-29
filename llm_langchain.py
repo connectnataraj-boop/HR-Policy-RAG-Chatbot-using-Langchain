@@ -28,7 +28,7 @@ def get_chunks(text):
 # Embed and store in Pinecone
 
 
-def store_in_pinecone(chunks):
+def store_in_pinecone(chunks, namespace):
     embeddings = OpenAIEmbeddings(
         model="text-embedding-3-small",
         api_key=os.getenv("OPENAI_API_KEY")
@@ -36,7 +36,9 @@ def store_in_pinecone(chunks):
     vectorstore = PineconeVectorStore.from_texts(
         texts=chunks,
         embedding=embeddings,
-        index_name=os.getenv("PINECONE_INDEX_NAME")
+        index_name=os.getenv("PINECONE_INDEX_NAME"),
+        namespace=namespace,
+        ids=[f"{namespace}-{i}" for i in range(len(chunks))],
     )
     return vectorstore
 
