@@ -1,6 +1,10 @@
-pypdf
-openai
-pinecone-client
-python-dotenv
-langchain
 streamlit
+langchain
+langchain-core
+langchain-community
+langchain-openai
+langchain-pinecone
+langchain-text-splitters
+pinecone
+pypdf
+python-dotenv
