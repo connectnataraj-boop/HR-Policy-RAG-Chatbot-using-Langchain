@@ -49,7 +49,7 @@ def query_processor(query: str, vectorstore) -> str:
     context = "\n\n".join([doc.page_content for doc in results])
 
     llm = ChatOpenAI(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         temperature=0.4,
         api_key=os.getenv("OPENAI_API_KEY")
     )
