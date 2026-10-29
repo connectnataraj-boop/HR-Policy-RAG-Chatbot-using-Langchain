@@ -9,3 +9,4 @@ pinecone
 pypdf
 python-dotenv
 sentence-transformers
+cohere
