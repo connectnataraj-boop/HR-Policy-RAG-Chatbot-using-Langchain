@@ -1,41 +1,45 @@
+import io
+import hashlib
 import streamlit as st
 from llm_langchain import load_pdf, get_chunks, store_in_pinecone, query_processor
 
 st.title("HR Policy Chatbot")
-st.write("Ask anything about the HR Policy document.")
+st.write("Upload an HR policy PDF, then ask questions about it.")
+
+uploaded = st.file_uploader("Upload a PDF", type="pdf")
 
 
-@st.cache_resource
-def setup():
-    text = load_pdf("resources/HRPolicy.pdf")
+@st.cache_resource(show_spinner="Reading and indexing the document...")
+def setup(file_bytes: bytes):
+    namespace = hashlib.md5(file_bytes).hexdigest()
+    text = load_pdf(io.BytesIO(file_bytes))
     chunks = get_chunks(text)
-    vectorstore = store_in_pinecone(chunks)
-    return vectorstore
+    return store_in_pinecone(chunks, namespace)
 
 
-vectorstore = setup()
+if uploaded is None:
+    st.info("Please upload a PDF to start.")
+    st.stop()
+
+vectorstore = setup(uploaded.getvalue())
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
 
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.write(msg["content"])
 
-
 query = st.chat_input("Ask your question...")
 
 if query:
-    # Show user message
     with st.chat_message("user"):
         st.write(query)
     st.session_state.messages.append({"role": "user", "content": query})
 
-    # Get answer
     with st.spinner("Thinking..."):
-        answer = query_processor(query)
+        answer = query_processor(query, vectorstore)
 
-    # Show assistant answer
     with st.chat_message("assistant"):
         st.write(answer)
     st.session_state.messages.append({"role": "assistant", "content": answer})
